@@ -1,0 +1,16 @@
+﻿  TravellingSalesmanProblem.cpp
+C:\Users\jakub\source\repos\TravellingSalesmanProblem\TravellingSalesmanProblem\TravellingSalesmanProblem.cpp(59,31): warning C4267: 'initializing': conversion from 'size_t' to 'unsigned int', possible loss of data
+C:\Users\jakub\source\repos\TravellingSalesmanProblem\TravellingSalesmanProblem\TravellingSalesmanProblem.cpp(66,21): warning C4018: '<': signed/unsigned mismatch
+C:\Users\jakub\source\repos\TravellingSalesmanProblem\TravellingSalesmanProblem\TravellingSalesmanProblem.cpp(96,22): warning C4267: 'initializing': conversion from 'size_t' to 'int', possible loss of data
+C:\Users\jakub\source\repos\TravellingSalesmanProblem\TravellingSalesmanProblem\TravellingSalesmanProblem.cpp(107,46): warning C4244: '+=': conversion from '_Ty' to 'int', possible loss of data
+          with
+          [
+              _Ty=double
+          ]
+C:\Users\jakub\source\repos\TravellingSalesmanProblem\TravellingSalesmanProblem\TravellingSalesmanProblem.cpp(112,43): warning C4244: '+=': conversion from '_Ty' to 'int', possible loss of data
+          with
+          [
+              _Ty=double
+          ]
+C:\Users\jakub\source\repos\TravellingSalesmanProblem\TravellingSalesmanProblem\TravellingSalesmanProblem.cpp(126,16): warning C4244: 'return': conversion from 'double' to 'float', possible loss of data
+  TravellingSalesmanProblem.vcxproj -> C:\Users\jakub\source\repos\TravellingSalesmanProblem\x64\Debug\TravellingSalesmanProblem.exe
