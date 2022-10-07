@@ -7,6 +7,7 @@
 #include <omp.h> 
 
 
+
 using namespace std;
 
 class TSP_bruteforce_int {
@@ -184,6 +185,31 @@ class TSP_bruteforce_double {
 		return distances;
 	}
 
+	int permutate(vector<double> distance_vector, vector<int> nodes) {
+		int source = 0;
+		int shortest_path = INT_MAX;
+		/// generating permutations and tracking the minimum cost
+		do {
+			//path.clear();
+
+			int path_weight = 0;
+			int j = source;
+
+			for (int i = 0; i < nodes.size(); i++)
+			{
+				path_weight += distance_vector[nodes[i]];
+				j = nodes[i];
+			}
+
+			path_weight += distance_vector[0];
+
+			shortest_path = min(shortest_path, path_weight);
+
+		} while (next_permutation(nodes.begin(), nodes.end()));
+
+		return shortest_path;
+	}
+
 public:
 
 	int read_tsp_file(const char* fname)
@@ -247,19 +273,27 @@ public:
 		{
 			if (i != source)
 			{
+				//nodes: 1,2,3,...,11
 				nodes.push_back(i);
 			}
 		}
-		int n = nodes.size();
+
 		int shortest_path = INT_MAX;
 
+		/*parallel here */
+
+
 		/// generating permutations and tracking the minimum cost
-		/**/while (next_permutation(nodes.begin(), nodes.end())) {
+		#pragma omp parallel sections
+		{
+		#pragma omp section
+		while (next_permutation(nodes.begin(), nodes.end())) {
 			//path.clear();
+					
 			int path_weight = 0;
 			int j = source;
 
-			for (int i = 0; i < n; i++)
+			for (int i = 0; i < nodes.size(); i++)
 			{
 				path_weight += distance_matrix[j][nodes[i]];
 				j = nodes[i];
@@ -267,13 +301,22 @@ public:
 			}
 
 			path_weight += distance_matrix[j][source];
-
+			
 			shortest_path = min(shortest_path, path_weight);
 
 		}
-
+		}
+	
 		return shortest_path;
 
+		
+	
+
+		//int res = permutate(distance_matrix[0], nodes);
+		//cout << "test result: " << res << '\n';
+
+		// declaring four threads
+		//pthread_t threads[MAX_THREAD];
 	}
 };
 
@@ -292,4 +335,33 @@ int main()
 	cin.get();
 
 	return 0;
+
+	//chovani next permutation:
+	//dycky se na prvni misto dosadi neco jineho
+
+	/*1,2,3,4
+	1243
+	1324
+	1342
+	1423
+	1432
+	*/
+	//vsechny permutace kde na zacatku je 1 bude zpracovavat 1 vlakno
+	//vsechny permutace kde na zacatku je 2 bude zpracovavat 2 vlakno
+	/*
+	1234
+	2134
+	3124
+	4123
+	- kazde vlakno muze permutovat 1 vector
+	- pouzit rotate tak, abych dycky na zacatku mel to cislo ktere chci
+	*/
+	/*
+	1234
+	2134
+	3124
+	4123
+	z jeho cpp --> rotate(path.begin, path.begin+i, path.begin+i+1)
+	- dostal se na 14
+	*/
 }
