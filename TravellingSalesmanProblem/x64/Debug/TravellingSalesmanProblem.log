@@ -1,33 +1,25 @@
 ﻿  TravellingSalesmanProblem.cpp
-C:\Users\jakub\source\repos\git\travelling-salesman-problem\TravellingSalesmanProblem\TravellingSalesmanProblem.cpp(29,11): warning C4244: 'initializing': conversion from 'double' to 'int', possible loss of data
-C:\Users\jakub\source\repos\git\travelling-salesman-problem\TravellingSalesmanProblem\TravellingSalesmanProblem.cpp(30,10): warning C4244: 'return': conversion from 'int' to 'float', possible loss of data
-C:\Users\jakub\source\repos\git\travelling-salesman-problem\TravellingSalesmanProblem\TravellingSalesmanProblem.cpp(42,62): warning C4244: '=': conversion from 'float' to '_Ty', possible loss of data
+C:\Users\jakub\source\repos\git\travelling-salesman-problem\TravellingSalesmanProblem\TravellingSalesmanProblem.cpp(28,11): warning C4244: 'initializing': conversion from 'double' to 'int', possible loss of data
+C:\Users\jakub\source\repos\git\travelling-salesman-problem\TravellingSalesmanProblem\TravellingSalesmanProblem.cpp(29,10): warning C4244: 'return': conversion from 'int' to 'float', possible loss of data
+C:\Users\jakub\source\repos\git\travelling-salesman-problem\TravellingSalesmanProblem\TravellingSalesmanProblem.cpp(41,62): warning C4244: '=': conversion from 'float' to '_Ty', possible loss of data
           with
           [
               _Ty=int
           ]
-C:\Users\jakub\source\repos\git\travelling-salesman-problem\TravellingSalesmanProblem\TravellingSalesmanProblem.cpp(83,1): warning C4267: 'initializing': conversion from 'size_t' to 'unsigned int', possible loss of data
-C:\Users\jakub\source\repos\git\travelling-salesman-problem\TravellingSalesmanProblem\TravellingSalesmanProblem.cpp(122,1): warning C4267: 'initializing': conversion from 'size_t' to 'int', possible loss of data
-C:\Users\jakub\source\repos\git\travelling-salesman-problem\TravellingSalesmanProblem\TravellingSalesmanProblem.cpp(169,14): warning C4244: 'return': conversion from 'double' to 'float', possible loss of data
-C:\Users\jakub\source\repos\git\travelling-salesman-problem\TravellingSalesmanProblem\TravellingSalesmanProblem.cpp(200,44): warning C4244: '+=': conversion from '_Ty' to 'int', possible loss of data
+C:\Users\jakub\source\repos\git\travelling-salesman-problem\TravellingSalesmanProblem\TravellingSalesmanProblem.cpp(82,1): warning C4267: 'initializing': conversion from 'size_t' to 'unsigned int', possible loss of data
+C:\Users\jakub\source\repos\git\travelling-salesman-problem\TravellingSalesmanProblem\TravellingSalesmanProblem.cpp(121,1): warning C4267: 'initializing': conversion from 'size_t' to 'int', possible loss of data
+C:\Users\jakub\source\repos\git\travelling-salesman-problem\TravellingSalesmanProblem\TravellingSalesmanProblem.cpp(168,14): warning C4244: 'return': conversion from 'double' to 'float', possible loss of data
+C:\Users\jakub\source\repos\git\travelling-salesman-problem\TravellingSalesmanProblem\TravellingSalesmanProblem.cpp(215,44): warning C4244: '+=': conversion from '_Ty' to 'int', possible loss of data
           with
           [
               _Ty=double
           ]
-C:\Users\jakub\source\repos\git\travelling-salesman-problem\TravellingSalesmanProblem\TravellingSalesmanProblem.cpp(204,36): warning C4244: '+=': conversion from '_Ty' to 'int', possible loss of data
+C:\Users\jakub\source\repos\git\travelling-salesman-problem\TravellingSalesmanProblem\TravellingSalesmanProblem.cpp(219,36): warning C4244: '+=': conversion from '_Ty' to 'int', possible loss of data
           with
           [
               _Ty=double
           ]
-C:\Users\jakub\source\repos\git\travelling-salesman-problem\TravellingSalesmanProblem\TravellingSalesmanProblem.cpp(246,1): warning C4267: 'initializing': conversion from 'size_t' to 'unsigned int', possible loss of data
-C:\Users\jakub\source\repos\git\travelling-salesman-problem\TravellingSalesmanProblem\TravellingSalesmanProblem.cpp(298,47): warning C4244: '+=': conversion from '_Ty' to 'int', possible loss of data
-          with
-          [
-              _Ty=double
-          ]
-C:\Users\jakub\source\repos\git\travelling-salesman-problem\TravellingSalesmanProblem\TravellingSalesmanProblem.cpp(303,44): warning C4244: '+=': conversion from '_Ty' to 'int', possible loss of data
-          with
-          [
-              _Ty=double
-          ]
+C:\Users\jakub\source\repos\git\travelling-salesman-problem\TravellingSalesmanProblem\TravellingSalesmanProblem.cpp(265,1): warning C4267: 'initializing': conversion from 'size_t' to 'unsigned int', possible loss of data
+C:\Users\jakub\source\repos\git\travelling-salesman-problem\TravellingSalesmanProblem\TravellingSalesmanProblem.cpp(328,19): warning C4244: '=': conversion from 'double' to 'int', possible loss of data
+C:\Users\jakub\source\repos\git\travelling-salesman-problem\TravellingSalesmanProblem\TravellingSalesmanProblem.cpp(356,21): warning C4101: 'sol1': unreferenced local variable
   TravellingSalesmanProblem.vcxproj -> C:\Users\jakub\source\repos\git\travelling-salesman-problem\x64\Debug\TravellingSalesmanProblem.exe

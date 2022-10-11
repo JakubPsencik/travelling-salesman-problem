@@ -5,8 +5,7 @@
 #include <algorithm>
 #include <vector>
 #include <omp.h> 
-
-
+#include <chrono>
 
 using namespace std;
 
@@ -75,7 +74,7 @@ public:
 				int id;
 				double x, y;
 				sin >> id;
-				sin	>> x >> y;
+				sin >> x >> y;
 
 				temp.push_back({ static_cast<int>(x), static_cast<int>(y) });
 			}
@@ -122,28 +121,28 @@ public:
 		int n = nodes.size();
 		int shortest_path = INT_MAX;
 
-//#pragma omp parallel num_threads(4)
+		//#pragma omp parallel num_threads(4)
 
-			/// generating permutations and tracking the minimum cost
-			while (next_permutation(nodes.begin(), nodes.end())) {
-				//path.clear();
-				int path_weight = 0;
-				int j = source;
+					/// generating permutations and tracking the minimum cost
+		while (next_permutation(nodes.begin(), nodes.end())) {
+			//path.clear();
+			int path_weight = 0;
+			int j = source;
 
-				for (int i = 0; i < n; i++)
-				{
-					path_weight += distance_matrix[j][nodes[i]];
-					j = nodes[i];
-					//path.push_back({ j,nodes[i] });
-				}
-
-				path_weight += distance_matrix[j][source];
-
-				shortest_path = min(shortest_path, path_weight);
-
+			for (int i = 0; i < n; i++)
+			{
+				path_weight += distance_matrix[j][nodes[i]];
+				j = nodes[i];
+				//path.push_back({ j,nodes[i] });
 			}
 
-		
+			path_weight += distance_matrix[j][source];
+
+			shortest_path = min(shortest_path, path_weight);
+
+		}
+
+
 
 		return shortest_path;
 
@@ -185,6 +184,22 @@ class TSP_bruteforce_double {
 		return distances;
 	}
 
+	double path_cost(vector<int> cities, vector<vector<double>> distance_matrix) {
+		double pathWeight = 0;
+
+		for (int i = 0; i < cities.size() - 1; i++)
+		{
+			//int r = cities[i] - 1;
+			//int c = cities[i + 1] - 1;
+			pathWeight += distance_matrix[cities[i] - 1][cities[i + 1] - 1];
+		}
+		//path from last to first
+		//int r = cities[cities.size() - 1] - 1;
+		//int c = cities[0] - 1;
+		pathWeight += distance_matrix[cities[cities.size() - 1] - 1][cities[0] - 1];
+		return pathWeight;
+	}
+
 	int permutate(vector<double> distance_vector, vector<int> nodes) {
 		int source = 0;
 		int shortest_path = INT_MAX;
@@ -218,6 +233,10 @@ public:
 		vector<double> xs, ys;
 		vector<vector<double>> temp;
 		vector<vector<double>> distance_matrix;
+
+		// Using time point and system_clock
+		std::chrono::time_point<std::chrono::system_clock> start, end;
+		start = std::chrono::system_clock::now();
 
 		if (file.is_open())
 		{
@@ -262,61 +281,73 @@ public:
 		}
 
 		//TODO: calculate shortest possible route
-
-		//choosing 1st city
-		int source = 0;
-		vector<int> nodes;
-		vector<vector<int>> path;
+		vector<int> cities;
 
 		/// pushing the rest num_nodes-1 cities into a bundle
-		for (int i = 0; i < distance_matrix.size(); i++)
-		{
-			if (i != source)
-			{
-				//nodes: 1,2,3,...,11
-				nodes.push_back(i);
-			}
-		}
+		for (int i = 1; i < distance_matrix.size() + 1; i++)
+			cities.push_back(i);
 
-		int shortest_path = INT_MAX;
+		int min_dist = INT_MAX;
+		vector<int> shortest_path{};
 
 		/*parallel here */
 
-
+		/*
 		/// generating permutations and tracking the minimum cost
 		#pragma omp parallel sections
-		{
 		#pragma omp section
-		while (next_permutation(nodes.begin(), nodes.end())) {
-			//path.clear();
-					
-			int path_weight = 0;
-			int j = source;
-
-			for (int i = 0; i < nodes.size(); i++)
-			{
-				path_weight += distance_matrix[j][nodes[i]];
-				j = nodes[i];
-				//path.push_back({ j,nodes[i] });
-			}
-
-			path_weight += distance_matrix[j][source];
-			
-			shortest_path = min(shortest_path, path_weight);
-
-		}
-		}
-	
-		return shortest_path;
-
-		
-	
-
-		//int res = permutate(distance_matrix[0], nodes);
-		//cout << "test result: " << res << '\n';
+		*/
 
 		// declaring four threads
 		//pthread_t threads[MAX_THREAD];
+
+//#pragma omp parallel
+		//{
+//omp_set_num_threads(cities.size());
+		double dist = 0;
+//#pragma omp parallel for
+//#pragma omp parallel for reduction(:dist)
+			for (int i = 0; i < cities.size(); ++i)
+			{
+				auto localPath = cities;
+
+				rotate(localPath.begin(), localPath.begin() + i, localPath.begin() + i + 1);
+				do
+				{
+					/*for (int i : localPath)
+						std::cout << i << ' ';
+					cout << '\n';*/
+					dist = path_cost(localPath, distance_matrix);
+
+//#pragma omp critical
+					
+					{
+						if (dist < min_dist)
+						{
+							shortest_path = localPath;
+							min_dist = dist;
+						}
+					}
+
+				} while (next_permutation(localPath.begin() + 1, localPath.end()));
+
+			}
+
+
+		//}
+
+		end = std::chrono::system_clock::now();
+
+		std::chrono::duration<double> elapsed_seconds = end - start;
+
+		cout << "elapsed time: " << elapsed_seconds.count() << "s\n";
+		cout << "path: ";
+		for (int i : shortest_path)
+			cout << i << " --> ";
+		cout << '\n';
+
+		return min_dist;
+
 	}
 };
 
@@ -330,7 +361,7 @@ int main()
 	cout << "_double---------------------------------------------------------------\n";
 	cout << endl;
 	cout << "_int---------------------------------------------------------------\n";
-	cout << "shortest path: " << sol1.read_tsp_file("ulysses22.tsp.txt") << '\n';
+	//cout << "shortest path: " << sol1.read_tsp_file("ulysses22.tsp.txt") << '\n';
 	cout << "_int---------------------------------------------------------------\n";
 	cin.get();
 

@@ -1,0 +1,33 @@
+﻿  TravellingSalesmanProblem.cpp
+C:\Users\jakub\source\repos\git\travelling-salesman-problem\TravellingSalesmanProblem\TravellingSalesmanProblem.cpp(31,11): warning C4244: 'initializing': conversion from 'double' to 'int', possible loss of data
+C:\Users\jakub\source\repos\git\travelling-salesman-problem\TravellingSalesmanProblem\TravellingSalesmanProblem.cpp(32,10): warning C4244: 'return': conversion from 'int' to 'float', possible loss of data
+C:\Users\jakub\source\repos\git\travelling-salesman-problem\TravellingSalesmanProblem\TravellingSalesmanProblem.cpp(44,62): warning C4244: '=': conversion from 'float' to '_Ty', possible loss of data
+          with
+          [
+              _Ty=int
+          ]
+C:\Users\jakub\source\repos\git\travelling-salesman-problem\TravellingSalesmanProblem\TravellingSalesmanProblem.cpp(96,22): warning C4018: '<': signed/unsigned mismatch
+C:\Users\jakub\source\repos\git\travelling-salesman-problem\TravellingSalesmanProblem\TravellingSalesmanProblem.cpp(117,21): warning C4018: '<': signed/unsigned mismatch
+C:\Users\jakub\source\repos\git\travelling-salesman-problem\TravellingSalesmanProblem\TravellingSalesmanProblem.cpp(171,14): warning C4244: 'return': conversion from 'double' to 'float', possible loss of data
+C:\Users\jakub\source\repos\git\travelling-salesman-problem\TravellingSalesmanProblem\TravellingSalesmanProblem.cpp(193,21): warning C4018: '<': signed/unsigned mismatch
+C:\Users\jakub\source\repos\git\travelling-salesman-problem\TravellingSalesmanProblem\TravellingSalesmanProblem.cpp(216,22): warning C4018: '<': signed/unsigned mismatch
+C:\Users\jakub\source\repos\git\travelling-salesman-problem\TravellingSalesmanProblem\TravellingSalesmanProblem.cpp(218,44): warning C4244: '+=': conversion from '_Ty' to 'int', possible loss of data
+          with
+          [
+              _Ty=double
+          ]
+C:\Users\jakub\source\repos\git\travelling-salesman-problem\TravellingSalesmanProblem\TravellingSalesmanProblem.cpp(222,36): warning C4244: '+=': conversion from '_Ty' to 'int', possible loss of data
+          with
+          [
+              _Ty=double
+          ]
+C:\Users\jakub\source\repos\git\travelling-salesman-problem\TravellingSalesmanProblem\TravellingSalesmanProblem.cpp(273,22): warning C4018: '<': signed/unsigned mismatch
+C:\Users\jakub\source\repos\git\travelling-salesman-problem\TravellingSalesmanProblem\TravellingSalesmanProblem.cpp(290,21): warning C4018: '<': signed/unsigned mismatch
+C:\Users\jakub\source\repos\git\travelling-salesman-problem\TravellingSalesmanProblem\TravellingSalesmanProblem.cpp(311,22): warning C4018: '<': signed/unsigned mismatch
+C:\Users\jakub\source\repos\git\travelling-salesman-problem\TravellingSalesmanProblem\TravellingSalesmanProblem.cpp(328,19): warning C4244: '=': conversion from 'double' to 'int', possible loss of data
+C:\Users\jakub\source\repos\git\travelling-salesman-problem\TravellingSalesmanProblem\TravellingSalesmanProblem.cpp(356,21): warning C4101: 'sol1': unreferenced local variable
+  Generating code
+  Previous IPDB not found, fall back to full compilation.
+  All 444 functions were compiled because no usable IPDB/IOBJ from previous compilation was found.
+  Finished generating code
+  TravellingSalesmanProblem.vcxproj -> C:\Users\jakub\source\repos\git\travelling-salesman-problem\Release\TravellingSalesmanProblem.exe
