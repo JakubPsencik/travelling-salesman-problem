@@ -8,22 +8,14 @@ C:\Users\jakub\source\repos\git\travelling-salesman-problem\TravellingSalesmanPr
           ]
 C:\Users\jakub\source\repos\git\travelling-salesman-problem\TravellingSalesmanProblem\TravellingSalesmanProblem.cpp(82,1): warning C4267: 'initializing': conversion from 'size_t' to 'unsigned int', possible loss of data
 C:\Users\jakub\source\repos\git\travelling-salesman-problem\TravellingSalesmanProblem\TravellingSalesmanProblem.cpp(121,1): warning C4267: 'initializing': conversion from 'size_t' to 'int', possible loss of data
-C:\Users\jakub\source\repos\git\travelling-salesman-problem\TravellingSalesmanProblem\TravellingSalesmanProblem.cpp(168,14): warning C4244: 'return': conversion from 'double' to 'float', possible loss of data
-C:\Users\jakub\source\repos\git\travelling-salesman-problem\TravellingSalesmanProblem\TravellingSalesmanProblem.cpp(215,44): warning C4244: '+=': conversion from '_Ty' to 'int', possible loss of data
-          with
-          [
-              _Ty=double
-          ]
-C:\Users\jakub\source\repos\git\travelling-salesman-problem\TravellingSalesmanProblem\TravellingSalesmanProblem.cpp(219,36): warning C4244: '+=': conversion from '_Ty' to 'int', possible loss of data
-          with
-          [
-              _Ty=double
-          ]
-C:\Users\jakub\source\repos\git\travelling-salesman-problem\TravellingSalesmanProblem\TravellingSalesmanProblem.cpp(265,1): warning C4267: 'initializing': conversion from 'size_t' to 'unsigned int', possible loss of data
-C:\Users\jakub\source\repos\git\travelling-salesman-problem\TravellingSalesmanProblem\TravellingSalesmanProblem.cpp(328,19): warning C4244: '=': conversion from 'double' to 'int', possible loss of data
-C:\Users\jakub\source\repos\git\travelling-salesman-problem\TravellingSalesmanProblem\TravellingSalesmanProblem.cpp(356,21): warning C4101: 'sol1': unreferenced local variable
+C:\Users\jakub\source\repos\git\travelling-salesman-problem\TravellingSalesmanProblem\TravellingSalesmanProblem.cpp(212,14): warning C4244: 'return': conversion from 'double' to 'float', possible loss of data
+C:\Users\jakub\source\repos\git\travelling-salesman-problem\TravellingSalesmanProblem\TravellingSalesmanProblem.cpp(283,1): warning C4267: 'initializing': conversion from 'size_t' to 'unsigned int', possible loss of data
+C:\Users\jakub\source\repos\git\travelling-salesman-problem\TravellingSalesmanProblem\TravellingSalesmanProblem.cpp(332,19): warning C4244: '=': conversion from 'double' to 'int', possible loss of data
+C:\Users\jakub\source\repos\git\travelling-salesman-problem\TravellingSalesmanProblem\TravellingSalesmanProblem.cpp(377,14): warning C4244: 'return': conversion from 'double' to 'float', possible loss of data
+C:\Users\jakub\source\repos\git\travelling-salesman-problem\TravellingSalesmanProblem\TravellingSalesmanProblem.cpp(400,21): warning C4101: 'sol1': unreferenced local variable
   Generating code
-  Previous IPDB not found, fall back to full compilation.
-  All 444 functions were compiled because no usable IPDB/IOBJ from previous compilation was found.
+  0 of 444 functions ( 0.0%) were compiled, the rest were copied from previous compilation.
+    0 functions were new in current compilation
+    0 functions had inline decision re-evaluated but remain unchanged
   Finished generating code
   TravellingSalesmanProblem.vcxproj -> C:\Users\jakub\source\repos\git\travelling-salesman-problem\x64\Release\TravellingSalesmanProblem.exe

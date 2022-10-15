@@ -121,9 +121,7 @@ public:
 		int n = nodes.size();
 		int shortest_path = INT_MAX;
 
-		//#pragma omp parallel num_threads(4)
-
-					/// generating permutations and tracking the minimum cost
+		/// generating permutations and tracking the minimum cost
 		while (next_permutation(nodes.begin(), nodes.end())) {
 			//path.clear();
 			int path_weight = 0;
@@ -200,31 +198,6 @@ class TSP_bruteforce_double {
 		return pathWeight;
 	}
 
-	int permutate(vector<double> distance_vector, vector<int> nodes) {
-		int source = 0;
-		int shortest_path = INT_MAX;
-		/// generating permutations and tracking the minimum cost
-		do {
-			//path.clear();
-
-			int path_weight = 0;
-			int j = source;
-
-			for (int i = 0; i < nodes.size(); i++)
-			{
-				path_weight += distance_vector[nodes[i]];
-				j = nodes[i];
-			}
-
-			path_weight += distance_vector[0];
-
-			shortest_path = min(shortest_path, path_weight);
-
-		} while (next_permutation(nodes.begin(), nodes.end()));
-
-		return shortest_path;
-	}
-
 public:
 
 	int read_tsp_file(const char* fname)
@@ -236,7 +209,6 @@ public:
 
 		// Using time point and system_clock
 		std::chrono::time_point<std::chrono::system_clock> start, end;
-		start = std::chrono::system_clock::now();
 
 		if (file.is_open())
 		{
@@ -279,7 +251,7 @@ public:
 			cout << fname << " file not open" << endl;
 			return 0;
 		}
-
+		start = std::chrono::system_clock::now();
 		//TODO: calculate shortest possible route
 		vector<int> cities;
 
@@ -291,22 +263,11 @@ public:
 		vector<int> shortest_path{};
 
 		/*parallel here */
-
-		/*
 		/// generating permutations and tracking the minimum cost
-		#pragma omp parallel sections
-		#pragma omp section
-		*/
-
-		// declaring four threads
-		//pthread_t threads[MAX_THREAD];
-
-//#pragma omp parallel
-		//{
-//omp_set_num_threads(cities.size());
-		double dist = 0;
-//#pragma omp parallel for
-//#pragma omp parallel for reduction(:dist)
+#pragma omp parallel
+		{
+			double dist = 0;
+#pragma omp for
 			for (int i = 0; i < cities.size(); ++i)
 			{
 				auto localPath = cities;
@@ -314,13 +275,10 @@ public:
 				rotate(localPath.begin(), localPath.begin() + i, localPath.begin() + i + 1);
 				do
 				{
-					/*for (int i : localPath)
-						std::cout << i << ' ';
-					cout << '\n';*/
 					dist = path_cost(localPath, distance_matrix);
 
-//#pragma omp critical
-					
+#pragma omp critical
+
 					{
 						if (dist < min_dist)
 						{
@@ -334,7 +292,7 @@ public:
 			}
 
 
-		//}
+		}
 
 		end = std::chrono::system_clock::now();
 
@@ -351,20 +309,169 @@ public:
 	}
 };
 
+/*
+@brief
+Optimization of travelling salesman problem using Branch and bound algorithm
+*/
+class TSP_BranchAndBound {
+
+	vector<vector<double>> readCoordinationDataFromFile(const char* fname) {
+		ifstream file(fname);
+		vector<double> xs, ys;
+		vector<vector<double>> coordinationData;
+
+		// Using time point and system_clock
+		std::chrono::time_point<std::chrono::system_clock> start, end;
+
+		if (file.is_open())
+		{
+			string line;
+
+			getline(file, line);
+			getline(file, line);
+			getline(file, line);
+			getline(file, line);
+			getline(file, line);
+			getline(file, line);
+			getline(file, line);
+
+			while (std::getline(file, line)) {
+				if (line[0] == 'E')
+					break;
+
+				stringstream sin(line);
+				int id;
+				double x, y;
+				sin >> id >> x >> y;
+
+				coordinationData.push_back({ x,y });
+			}
+
+			file.close();
+		}
+		else
+		{
+			cout << fname << " file not open" << endl;
+			return {};
+		}
+
+		return coordinationData;
+	}
+
+	void print_distances(vector<double>& dist, unsigned int n)
+	{
+		for (unsigned int i = 0; i < dist.size(); i++)
+		{
+			cout << dist[i] << ", ";
+		}
+		cout << endl;
+	}
+
+	//euklidovska vzdalenost mezi dvema bodama
+	float distance(double x1, double y1, double x2, double y2)
+	{
+		// Calculating distance
+		return sqrt(pow(x2 - x1, 2) + pow(y2 - y1, 2) * 1.0);
+	}
+
+	// @brief Generate distance matrix.
+	vector<vector<double>> ComputeEuclideanDistanceMatrix(const vector<vector<double>>& locations, int n)
+	{
+		vector<vector<double>> distances = vector<vector<double>>(n, vector<double>(n, double{ 0 }));
+		for (int startingCity = 0; startingCity < n; startingCity++)
+		{
+			for (int endingCity = 0; endingCity < n; endingCity++)
+			{
+				if (startingCity != endingCity) {
+					distances[startingCity][endingCity] = static_cast<double>(distance(locations[startingCity][0], locations[startingCity][1], locations[endingCity][0], locations[endingCity][1]));
+				}
+			}
+		}
+		return distances;
+	}
+
+	// This function stores transpose
+	// of A[][] in B[][]
+	/*
+	void transpose(int A[][N], int B[][N])
+	{
+		int i, j;
+		for (i = 0; i < N; i++)
+			for (j = 0; j < N; j++)
+				B[i][j] = A[j][i];
+	}
+	*/
+
+	vector<vector<double>> reduce_matrix(vector<vector<double>> m) {
+
+		vector<double> min_elements = {};
+		//rows
+		for (int i = 0; i < m.size(); i++)
+		{
+			vector<double> row = m[i];
+			auto min_element = *std::min_element(begin(row), end(row));
+			min_elements.push_back(min_element);
+			for (auto& val : row)
+				val -= min_element;
+			m[i] = row;
+		}
+		cout << "test\n";
+		//cols 
+		
+		for (int cols = 0; cols < m.size(); cols++)
+		{
+			for (int rows = 0; rows < m.size(); rows++)
+			{
+
+			}
+		}
+
+		return {};
+	}
+
+public:
+	void solve(const char* fileName) {
+		
+		//vector<vector<double>> cords = readCoordinationDataFromFile(fileName);
+		//calculate distance matrix
+		//vector<vector<double>> distance_matrix = ComputeEuclideanDistanceMatrix(cords, cords.size());
+		vector<vector<double>> distance_matrix = {{INT_MAX, 5, 40, 11},
+												  {5, INT_MAX, 9, 6 },
+												  {40, 9, INT_MAX, 8 },
+												  {11, 6, 8, INT_MAX }};
+		for (int i = 0; i < distance_matrix.size(); i++) {
+			print_distances(distance_matrix[i], distance_matrix.size());
+			cout << '\n';
+		}
+
+
+		/*
+		1. matrix reduction function
+		2. 
+		*/
+		reduce_matrix(distance_matrix);
+	}
+
+};
+
 int main()
 {
 	TSP_bruteforce_int sol1;
 	TSP_bruteforce_double sol2;
+	TSP_BranchAndBound sol3;
 
-	cout << "_double---------------------------------------------------------------\n";
-	cout << "shortest path: " << sol2.read_tsp_file("ulysses222.tsp.txt") << '\n';
-	cout << "_double---------------------------------------------------------------\n";
+	//cout << "_double---------------------------------------------------------------\n";
+	//cout << "shortest path: " << sol2.read_tsp_file("ulysses222.tsp.txt") << '\n';
+	//cout << "_double---------------------------------------------------------------\n";
 	cout << endl;
-	cout << "_int---------------------------------------------------------------\n";
+	//cout << "_int---------------------------------------------------------------\n";
 	//cout << "shortest path: " << sol1.read_tsp_file("ulysses22.tsp.txt") << '\n';
-	cout << "_int---------------------------------------------------------------\n";
+	//cout << "_int---------------------------------------------------------------\n";
+	cout << "Branch and Bound---------------------------------------------------------------\n";
+	sol3.solve("ulysses222.tsp.txt");
+	cout << "Branch and Bound---------------------------------------------------------------\n";
 	cin.get();
-
+	 
 	return 0;
 
 	//chovani next permutation:
@@ -392,7 +499,7 @@ int main()
 	2134
 	3124
 	4123
-	z jeho cpp --> rotate(path.begin, path.begin+i, path.begin+i+1)
-	- dostal se na 14
+	rotate(path.begin, path.begin+i, path.begin+i+1)
+	-- 14
 	*/
 }
