@@ -1,2 +1,2 @@
 # travelling-salesman-problem
-TSP brute force c++
+Parallel TSP brute force c++
